@@ -1,3 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+    width:100%;
+    background-color:orange;
+    display:flex;
+    justify-content:flex-end;
+    
+
+`;

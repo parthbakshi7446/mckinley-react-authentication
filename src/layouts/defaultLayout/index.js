@@ -1,9 +1,10 @@
 import React from "react";
+import {Container} from "./styles";
 
 const DefaultLayout = props => {
   return (
     <>
-        <div className="container">{props.children}</div>
+        <Container className="container">{props.children}</Container>
       
     </>
   );

@@ -3,6 +3,9 @@ import axios from "axios";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import * as service from "../../../utils/services";
 import {Redirect} from "react-router-dom";
+import {Image, Info, InfoSet,SideBaar, UserSet,Outer, Img, Headingg} from "./style_userList";
+import SideBar from "./sidebar";
+import Top from "./top";
 
 export class UsersList extends Component {
   constructor(props) {
@@ -33,19 +36,22 @@ export class UsersList extends Component {
     if(items)
     return items.map((item, index) => {
       return (
-        <div key={index} id={item.id}>
-          <div>
-            <img src={item.avatar} alt={item.first_name} />
-          </div>
-          <div>
-            <div color={"firstname"} className="firstname">
-              {item.first_name}
-            </div>
-            <div color={"lastname"} className="lastname">
-              {item.last_name}
-            </div>
-          </div>
-        </div>
+        <InfoSet key={index} id={item.id}>
+          <Image>
+            <Img src={item.avatar} alt={item.first_name} />
+          </Image>
+        
+          <Info>
+            {item.first_name}
+          </Info>
+          <Info >
+            {item.last_name}
+          </Info>
+          <Info>
+            {item.email}
+          </Info>
+        
+        </InfoSet>
       );
     });
   };
@@ -58,8 +64,29 @@ export class UsersList extends Component {
     }
     return (
       <>
-        <button className="btn logout" onClick={this.handleLogOut}>log out</button>
-        {users}
+        <div>
+          <button className="btn logout" onClick={this.handleLogOut}>log out</button>
+          <SideBaar>
+            <SideBar/>
+          </SideBaar>
+          
+          <div>
+            <Outer>
+              <p style={{color:"white"}}>Home</p>
+              <Top/>
+              <Top/>
+              <Top/>
+            </Outer>
+            
+            <UserSet>
+              <Headingg >User Table</Headingg>
+              {users}
+            </UserSet>
+          </div>
+          
+        </div>
+        
+        
         
       </>
     );
