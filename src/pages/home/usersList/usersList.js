@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Spinner from "../../../components/UI/Spinner/Spinner";
-// import UserLoading from "../../../components/userLoading";
-// import * as actions from "./actions";
-// import { bindActionCreators } from "redux";
-// import { connect } from "react-redux";
-import { Row, Avatar, UserInfo, Text } from "./styles";
-// import PropTypes from "prop-types";
+import * as service from "../../../utils/services";
+import {Redirect} from "react-router-dom";
 
 export class UsersList extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: null, loading: false };
+    this.state = { users: null, loading: false,logIn:true };
   }
   componentDidMount() {
     if (!this.state.users) {
@@ -26,96 +22,49 @@ export class UsersList extends Component {
         });
     }
   }
-  // handleLoadMore = e => {
-  //   e.preventDefault();
-  //   //add new data
-  //   this.request();
-  // };
-  // request = () => {
-  //   this.props.get("&page=" + this.props.next_page);
-  // };
-  renderFarm = (items = []) => {
+  handleLogOut = e =>{
+    e.preventDefault();
+    service.logOut();
+    this.setState({logIn:false});
+    
+  };
+  renderHelper = (items = []) => {
     // console.log(items)
     if(items)
     return items.map((item, index) => {
       return (
-        <Row key={index} id={item.id}>
-          <Avatar>
+        <div key={index} id={item.id}>
+          <div>
             <img src={item.avatar} alt={item.first_name} />
-          </Avatar>
-          <UserInfo>
-            <Text color={"firstname"} className="firstname">
+          </div>
+          <div>
+            <div color={"firstname"} className="firstname">
               {item.first_name}
-            </Text>
-            <Text color={"lastname"} className="lastname">
+            </div>
+            <div color={"lastname"} className="lastname">
               {item.last_name}
-            </Text>
-          </UserInfo>
-        </Row>
+            </div>
+          </div>
+        </div>
       );
     });
   };
   render() {
-    // const {  loading, next_page, total_pages, failure } = this.props;
     let users = <Spinner />
     if (this.state.users)
-      users=this.renderFarm(this.state.users)
-
+      users=this.renderHelper(this.state.users)
+    if(!this.state.logIn){
+      users = <Redirect to={{pathname: "/login"}} />
+    }
     return (
       <>
-      
+        <button className="btn logout" onClick={this.handleLogOut}>log out</button>
         {users}
-        {/* <UserLoading isLoading={loading} /> */}
-        {/* <div style={{ textAlign: "center" }}>
-          {total_pages >= next_page && !loading && (
-            <button className="btn load_more" onClick={this.handleLoadMore}>
-              Load more...
-            </button>
-          )}
-          {failure && !loading && (
-            <button className="btn try_again" onClick={this.handleLoadMore}>
-              Try again
-            </button>
-          )}
-        </div> */}
+        
       </>
     );
   }
 }
 
-// const mapStateToProps = state => ({
-//   loading: state.usersList.loading,
-//   failure: state.usersList.failure,
-//   data: state.usersList.data,
-//   next_page: state.usersList.next_page,
-//   total_pages: state.usersList.total_pages
-// });
-// const mapDispatchToProps = dispatch => {
-//   const { get, deleteItem } = actions;
-//   return bindActionCreators(
-//     { get, deleteItem },
-//     dispatch
-//   );
-// };
-// UsersList.propTypes = {
-//     loading : PropTypes.bool,
-//     failure: PropTypes.bool,
-//     data: PropTypes.array,
-//     next_page: PropTypes.number,
-//     total_pages: PropTypes.number,
-//     get: PropTypes.func,
-//     deleteItem: PropTypes.func,
-// };
+
 export default UsersList;
-
-// class UsersList extends Component {
-
-//   constructor(props){
-//     super(props)
-//     this.state={
-//       users:null,
-//       loading:false,error:false
-//     }
-//   }
-
-// }

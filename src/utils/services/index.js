@@ -16,20 +16,6 @@ export const makePostReq = params =>
     .catch(error => {
       throw error;
     });
-export const makeDeleteReq = url =>
-  axios
-    .delete(url)
-    .then(res => res)
-    .catch(error => {
-      throw error;
-    });
-export const makePatchReq = params =>
-  axios
-    .patch(params.url, params.data)
-    .then(res => res)
-    .catch(error => {
-      throw error;
-    });
 export const logOut = () => {
   localStorage.removeItem("authToken");
 };
