@@ -24,8 +24,8 @@ const Header = props => {
         </HeaderBox>
     );
 }
-Header.propTypes = {
-    title : PropTypes.string.isRequired,
-    btn: PropTypes.bool
-};
+// Header.propTypes = {
+//     title : PropTypes.string.isRequired,
+//     btn: PropTypes.bool
+// };
 export default Header;
